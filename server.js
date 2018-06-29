@@ -1,5 +1,6 @@
 //PACKAGES
 var express = require("express");
+var express = require("express-handlebars");
 var bodyParser = require("body-parser");
 //var logger = require("morgan");
 var mongoose = require("mongoose");
