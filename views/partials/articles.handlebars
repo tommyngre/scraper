@@ -1,6 +1,11 @@
 <div class="article-wrapper">
-{{#each article}}
-  <h2><a href={{this.link}}>{{this.title}}</a></h2>
-{{/each}}
+  {{#each article}}
+  <h2>{{this.title}}</h2>
+  <p>{{this.summary}}
+    <span>
+      <a target="_blank" href={{this.link}}>here</a>
+    </span>
+    &laquo;
+  </p>
+  {{/each}}
 </div>
-

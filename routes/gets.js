@@ -3,7 +3,7 @@ var db = require("../models");
 var axios = require('axios');
 var cheerio = require('cheerio');
 
-module.exports = function (app) {  
+module.exports = function (app) {
 
   //SHOW JSON OF SCRAPE
   app.get("/api", function (req, res) {
@@ -18,7 +18,7 @@ module.exports = function (app) {
     db.Article.find({})
       .then(function (data) {
         hbsObject = {
-          article: data   
+          article: data
         }
         console.log(hbsObject);
         res.render('index', hbsObject);
@@ -38,26 +38,35 @@ module.exports = function (app) {
 
       var $ = cheerio.load(response.data);
 
-      console.log("response.data", response.data)
-
       // Now, we grab every h2 within an article tag, and do the following:
-      $("div.title-info h1 a").each(function (i, element) {
+      $("div.post").each(function (i, element) {
         // Save an empty result object
         var result = {};
 
         // Add the text and href of every link, and save them as properties of the result object
         result.title = $(this)
-          .attr('title')
+        .find(".title-info")
+        .find("h1")
+        .find("a")
+        .attr("title")
         //.text();
 
         result.link = $(this)
-          .attr("href");
+        .find(".title-info")
+        .find("h1")
+        .find("a")
+        .attr("href")
+
+        result.summary = $(this)
+        .children("p").text();
+
+        console.log("IN",result.summary);
 
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
           .then(function (dbArticle) {
             // View the added result in the console
-            console.log(dbArticle);
+            console.log("OUT",dbArticle);
           })
           .catch(function (err) {
             // If an error occurred, send it to the client
@@ -70,7 +79,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get('*', function(req, res) {
+  app.get('*', function (req, res) {
     res.render('404');
   });
 
