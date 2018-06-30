@@ -1,6 +1,6 @@
 //PACKAGES
 var express = require("express");
-var express = require("express-handlebars");
+var hbs = require("express-handlebars");
 var bodyParser = require("body-parser");
 //var logger = require("morgan");
 var mongoose = require("mongoose");
@@ -10,7 +10,18 @@ var db = require("./models");
 
 //INIT SERVER, ROUTES, MIDDLEWARE
 var PORT = 3000;
+
 var app = express();
+app.engine('handlebars', hbs({
+  defaultLayout: 'main',
+  helpers: {
+    upperCase: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+  }
+}));
+
+app.set('view engine', 'handlebars');
 
 require('./routes/gets.js')(app);
 
@@ -36,6 +47,6 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 // Start the server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
 });
