@@ -1,3 +1,21 @@
-.add-note, .save-note{
+.add-note, .save-note, .toggle-comment{
   margin-bottom: 1rem;
+}
+
+.comment-wrapper{
+  margin-right: 10%;
+}
+
+form.comment-wrapper > div.form-group{
+  margin: 7px 0px;
+}
+
+form.comment-wrapper input {
+  line-height: 1;
+  font-size: 12px;
+  padding: 2px 5px;
+}
+
+form.comment-wrapper>.btn-sm {
+  font-size: .7rem;
 }

@@ -8,11 +8,13 @@
     </span>
     &laquo;
   </p>
-  <div class="add-note btn btn-info" data-id={{this._id}}>
+  <div class="add-note btn btn-primary" data-id={{this._id}}>
     <i class="fas fa-sticky-note"></i> Add a note
   </div>
+
   <div class="comments-wrapper" data-id={{this._id}}>
 
+    <h5>Previous comments:</h5>
     {{> comments}}
 
   </div>
