@@ -64,5 +64,26 @@ $(document).on('click','.unlock-note, .save-old-note', function(){
     $(`.save-old-note[data-noteid=${id}]`).hide();
   }
   
+});
 
-})
+//save comment when "Save comment" clicked
+$(document).on("click", ".save-old-note", function() {
+  var noteId = $(this).attr("data-noteId");
+  var articleId = $(this).closest('.comments-wrapper').attr('data-id');
+
+  console.log("articleId",articleId,"noteId",noteId)
+
+  //POST form elems
+  // $.ajax({
+  //   method: "POST",
+  //   url: "/articles/" + articleId,
+  //   data: {
+  //     title: $(`#title-${}`).val(),
+  //     comment: $("#comment").val()
+  //   }
+  // })
+  //   .then(function(data) {
+  //     console.log(data);
+  //   });
+
+});
