@@ -1,4 +1,4 @@
-.add-note, .save-note, .toggle-comment{
+.add-note, .save-note, .save-old-note, .unlock-note, .delete-note{
   margin-bottom: 1rem;
 }
 

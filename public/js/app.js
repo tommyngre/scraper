@@ -45,3 +45,24 @@ $(document).on("click", ".save-note", function() {
   $("#comment").val("");
   $('.comment').remove();
 });
+
+//unlock comment for editing
+$(document).on('click','.unlock-note, .save-old-note', function(){
+  let id = $(this).attr('data-noteid');
+  //if fields readOnly, make editable, vice verse
+  if ($(`input[data-noteid=${id}]`).attr('readOnly')) {
+    $(`input[data-noteid=${id}]`).attr('readOnly',false);
+    $(`textarea[data-noteid=${id}]`).attr('readOnly',false);
+    //swap unlock button w save button
+    $(`.unlock-note[data-noteid=${id}]`).hide();
+    $(`.save-old-note[data-noteid=${id}]`).show();
+  } else {
+    $(`input[data-noteid=${id}]`).attr('readOnly',true);
+    $(`textarea[data-noteid=${id}]`).attr('readOnly',true);  
+    //swap unlock button w save button
+    $(`.unlock-note[data-noteid=${id}]`).show();
+    $(`.save-old-note[data-noteid=${id}]`).hide();
+  }
+  
+
+})
