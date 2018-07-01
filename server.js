@@ -23,6 +23,13 @@ app.engine('handlebars', hbs({
 
 app.set('view engine', 'handlebars');
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/json
+app.use(bodyParser.json());
+
+app.use(express.static("public"));
+
 require('./routes/gets.js')(app);
 
 //handles logging requests
@@ -31,7 +38,6 @@ require('./routes/gets.js')(app);
 //handles form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
 //serve the public folder
-app.use(express.static("public"));
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/scraper");

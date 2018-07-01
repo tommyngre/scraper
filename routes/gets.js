@@ -60,13 +60,13 @@ module.exports = function (app) {
         result.summary = $(this)
         .children("p").text();
 
-        console.log("IN",result.summary);
+        //console.log("IN",result.summary);
 
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
           .then(function (dbArticle) {
             // View the added result in the console
-            console.log("OUT",dbArticle);
+            //console.log("OUT",dbArticle);
           })
           .catch(function (err) {
             // If an error occurred, send it to the client
