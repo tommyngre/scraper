@@ -1,5 +1,6 @@
-<div class="article-wrapper container">
-  {{#each article}}
+{{#each article}}
+<div class="article-wrapper container" data-id={{this._id}}>
+
   <h2>{{this.title}}</h2>
   <p>{{this.summary}}
     <span>
@@ -7,6 +8,13 @@
     </span>
     &laquo;
   </p>
-  <div class="note"><i class="fas fa-sticky-note"></i> Add a note</div>
-  {{/each}}
+  <div class="add-note btn btn-info" data-id={{this._id}}>
+    <i class="fas fa-sticky-note"></i> Add a note
+  </div>
+  <div class="comments-wrapper" data-id={{this._id}}>
+
+    {{> comments}}
+
+  </div>
 </div>
+{{/each}}

@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 require('./routes/gets.js')(app);
+require('./routes/posts.js')(app);
 
 //handles logging requests
 //CHECK ON THIS

@@ -16,6 +16,7 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
 
     db.Article.find({})
+      .populate("note")
       .then(function (data) {
         hbsObject = {
           article: data
@@ -45,20 +46,20 @@ module.exports = function (app) {
 
         // Add the text and href of every link, and save them as properties of the result object
         result.title = $(this)
-        .find(".title-info")
-        .find("h1")
-        .find("a")
-        .attr("title")
+          .find(".title-info")
+          .find("h1")
+          .find("a")
+          .attr("title")
         //.text();
 
         result.link = $(this)
-        .find(".title-info")
-        .find("h1")
-        .find("a")
-        .attr("href")
+          .find(".title-info")
+          .find("h1")
+          .find("a")
+          .attr("href")
 
         result.summary = $(this)
-        .children("p").text();
+          .children("p").text();
 
         //console.log("IN",result.summary);
 
@@ -78,6 +79,7 @@ module.exports = function (app) {
       res.send("Scrape Complete");
     });
   });
+
 
   app.get('*', function (req, res) {
     res.render('404');
