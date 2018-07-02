@@ -1,3 +1,19 @@
+.header{
+  width: 100%;
+  background-color: navajowhite;
+  margin-bottom: 1rem;
+  padding:1rem;
+}
+
+.footer{
+  width: 100%;
+  padding:.2rem;
+}
+
+div.footer>h5>a{
+  text-decoration: none;  
+}
+
 .add-note, .save-note, .save-old-note, .unlock-note, .delete-note{
   margin-bottom: 1rem;
 }
