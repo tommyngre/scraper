@@ -77,7 +77,7 @@ $(document).on("click", ".save-old-note", function () {
     comment: $(`textarea[data-noteid=${noteId}]`).val()
   }
 
-  console.log("PUT", update);
+  //console.log("PUT", update);
 
   $.ajax("/notes/" + noteId,
     {
@@ -122,6 +122,6 @@ $(document).ready(function () {
   //scrape on load
   //-duplicate-check
   //-load new to old
-  
+
   //scrape();
 })

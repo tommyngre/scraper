@@ -21,7 +21,7 @@ module.exports = function (app) {
         hbsObject = {
           article: data
         }
-        console.log(hbsObject);
+        //console.log(hbsObject);
         res.render('index', hbsObject);
       })
       .catch(function (err) {
