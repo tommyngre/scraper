@@ -6,14 +6,18 @@
   margin-right: 10%;
 }
 
+.comments-wrapper{
+  margin-bottom: 1.5rem;
+}
+
 form.comment-wrapper > div.form-group{
   margin: 7px 0px;
 }
 
-form.comment-wrapper input {
+form.comment-wrapper input, form.comment-wrapper textarea {
   line-height: 1;
-  font-size: 12px;
-  padding: 2px 5px;
+  font-size: .8rem;
+  padding: 3px 5px;
 }
 
 form.comment-wrapper>.btn-sm {

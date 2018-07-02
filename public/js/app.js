@@ -69,21 +69,39 @@ $(document).on('click','.unlock-note, .save-old-note', function(){
 //save comment when "Save comment" clicked
 $(document).on("click", ".save-old-note", function() {
   var noteId = $(this).attr("data-noteId");
-  var articleId = $(this).closest('.comments-wrapper').attr('data-id');
 
-  console.log("articleId",articleId,"noteId",noteId)
+  let update = {
+    _id: noteId,
+    title: $(`input[data-noteid=${noteId}]`).val(),
+    comment: $(`textarea[data-noteid=${noteId}]`).val() 
+  }
 
-  //POST form elems
-  // $.ajax({
-  //   method: "POST",
-  //   url: "/articles/" + articleId,
-  //   data: {
-  //     title: $(`#title-${}`).val(),
-  //     comment: $("#comment").val()
-  //   }
-  // })
-  //   .then(function(data) {
-  //     console.log(data);
-  //   });
+  console.log("PUT",update);
+
+  $.ajax("/notes/" + noteId,
+    {
+      type: "PUT",
+      data: update
+    }).then(function () {
+      //location.reload();
+    })
+
+});
+
+$(document).on('click', '.delete-note', function (event) {
+  event.preventDefault();
+
+  let deletion = {
+    noteId: $(this).attr('data-noteId'),
+    articleId: $(this).closest('.comments-wrapper').attr('data-id')
+  }
+
+  $.ajax("/notes/" + deletion.noteId,
+    {
+      type: "DELETE",
+      data: deletion
+    }).then(function () {
+      location.reload();
+    })
 
 });
