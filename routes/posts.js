@@ -24,7 +24,7 @@ app.post("/articles/:id", function (req, res) {
 
 app.put('/notes/:id', function(req, res) {
 
-  console.log("req.body",req.body);
+  //console.log("req.body",req.body);
   
   db.Note.findOneAndUpdate({ _id: req.params.id }, req.body)
   .then(function(dBNote){
@@ -40,7 +40,7 @@ app.put('/notes/:id', function(req, res) {
 app.delete("/notes/:id", function (req, res) {
   // Create a new note and pass the req.body to the entry
 
-  console.log("DELETE",req.body);
+  //console.log("DELETE",req.body);
 
   db.Note.deleteOne({_id: req.body.noteId})
     .then(function (dbNote) {

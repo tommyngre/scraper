@@ -16,12 +16,13 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
 
     db.Article.find({})
+      .sort({ create_date: 1 })
       .populate("note")
       .then(function (data) {
         hbsObject = {
           article: data
         }
-        //console.log(hbsObject);
+        //console.log("db.Article.find({})",hbsObject);
         res.render('index', hbsObject);
       })
       .catch(function (err) {
@@ -44,7 +45,7 @@ module.exports = function (app) {
         // Save an empty result object
         var result = {};
 
-        // Add the text and href of every link, and save them as properties of the result object
+        //grab data, assign to result object
         result.title = $(this)
           .find(".title-info")
           .find("h1")
@@ -61,25 +62,33 @@ module.exports = function (app) {
         result.summary = $(this)
           .children("p").text();
 
+        result.create_date = Date.now();
+
         //console.log("IN",result.summary);
 
-        // Create a new Article using the `result` object built from scraping
-        db.Article.create(result)
-          .then(function (dbArticle) {
-            // View the added result in the console
-            //console.log("OUT",dbArticle);
-          })
-          .catch(function (err) {
-            // If an error occurred, send it to the client
-            return res.json(err);
+        db.Article.find({ title: result.title })
+          .then(function (data) {
+
+            //if doesn't exist, create
+            if (data.length === 0) {
+              db.Article.create(result)
+                .then(function (dbArticle) {
+                  // View the added result in the console
+                  //console.log("OUT",dbArticle);
+                })
+                .catch(function (err) {
+                  // If an error occurred, send it to the client
+                  return res.json("mnmnm",err);
+                });
+
+            };
           });
       });
 
-      // If we were able to successfully scrape and save an Article, send a message to the client
+      //send success message to client
       res.send("Scrape Complete");
     });
   });
-
 
   app.get('*', function (req, res) {
     res.render('404');

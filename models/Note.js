@@ -14,6 +14,10 @@ var NoteSchema = new Schema({
   comment: {
     type: String,
     required: true
+  },
+  create_date: {
+    type: Date,
+    default: Date.now
   }
 });
 

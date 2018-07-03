@@ -33,7 +33,8 @@ $(document).on("click", ".save-note", function () {
     url: "/articles/" + articleId,
     data: {
       title: $("#comment-title").val(),
-      comment: $("#comment").val()
+      comment: $("#comment").val(),
+      create_date: Date.now()
     }
   })
     .then(function (data) {
@@ -44,7 +45,7 @@ $(document).on("click", ".save-note", function () {
   //remove vals from form, remove form
   $("#comment-title").val("");
   $("#comment").val("");
-  $('.comment').remove();
+  $('.new-comment').remove();
 });
 
 //unlock comment for editing
@@ -74,7 +75,8 @@ $(document).on("click", ".save-old-note", function () {
   let update = {
     _id: noteId,
     title: $(`input[data-noteid=${noteId}]`).val(),
-    comment: $(`textarea[data-noteid=${noteId}]`).val()
+    comment: $(`textarea[data-noteid=${noteId}]`).val(),
+    create_date: Date.now()
   }
 
   //console.log("PUT", update);
@@ -82,7 +84,8 @@ $(document).on("click", ".save-old-note", function () {
   $.ajax("/notes/" + noteId,
     {
       type: "PUT",
-      data: update
+      data: update,
+      create_date: Date.now()
     }).then(function () {
       //location.reload();
     })
@@ -107,7 +110,7 @@ $(document).on('click', '.delete-note', function (event) {
 
 });
 
-function scrape(){
+function scrape() {
   $.ajax({
     method: "GET",
     url: "/scrape",
@@ -117,11 +120,6 @@ function scrape(){
     });
 }
 
-$(document).ready(function () {
-  //TODO
-  //scrape on load
-  //-duplicate-check
-  //-load new to old
-
-  //scrape();
+$(document).on('load', function () {
+  scrape();
 })

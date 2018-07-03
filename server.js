@@ -33,27 +33,31 @@ app.use(express.static("public"));
 require('./routes/gets.js')(app);
 require('./routes/posts.js')(app);
 
-//handles logging requests
-//CHECK ON THIS
-//app.use(logger("dev"));
 //handles form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
-//serve the public folder
 
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scraper");
+//configure connection
+var databaseUri = "mongodb://localhost/scraper";
 
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var db = mongoose.connection;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
-
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
 
-// Start the server
+//connect to mongoose
+db.on('error', function(err){
+  console.log('Mongoose Error: ',err);
+})
+db.once('open',function(){
+  console.log('Mongoose connection successful.')
+})
+
+//start server
 app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
 });
