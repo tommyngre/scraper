@@ -45,20 +45,6 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
-/*
-//configure connection
-var databaseUri = "mongodb://localhost/scraper";
-
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect(databaseUri);
-}
-
-var db = mongoose.connection;
-
-mongoose.Promise = Promise;
-
 //connect to mongoose
 db.on('error', function(err){
   console.log('Mongoose Error: ',err);
@@ -66,7 +52,7 @@ db.on('error', function(err){
 db.once('open',function(){
   console.log('Mongoose connection successful.')
 })
-*/
+
 //start server
 app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
