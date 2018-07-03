@@ -36,6 +36,15 @@ require('./routes/posts.js')(app);
 //handles form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+
+/*
 //configure connection
 var databaseUri = "mongodb://localhost/scraper";
 
@@ -56,7 +65,7 @@ db.on('error', function(err){
 db.once('open',function(){
   console.log('Mongoose connection successful.')
 })
-
+*/
 //start server
 app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
