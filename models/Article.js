@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema
+var ObjectId = Schema.ObjectId;
 
 // Using the Schema constructor, create a new UserSchema object
 // This is similar to a Sequelize model

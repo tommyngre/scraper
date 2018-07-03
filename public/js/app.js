@@ -27,6 +27,13 @@ $('.add-note').on('click', function () {
 $(document).on("click", ".save-note", function () {
   var articleId = $(this).attr("data-articleId");
 
+  let newComment = {
+    title: $("#comment-title").val(),
+    comment: $("#comment").val(),
+    create_date: Date.now()
+  };
+  //console.log(newComment);
+
   //POST form elems
   $.ajax({
     method: "POST",
@@ -38,7 +45,7 @@ $(document).on("click", ".save-note", function () {
     }
   })
     .then(function (data) {
-      //console.log(data);
+      console.log(data);
       location.reload();
     });
 
@@ -78,7 +85,7 @@ $(document).on("click", ".save-old-note", function () {
       type: "PUT",
       data: update
     }).then(function () {
-      //location.reload();
+      location.reload();
     })
 
   $(`input[data-noteid=${noteId}]`).attr('readOnly', true);
