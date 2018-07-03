@@ -49,22 +49,14 @@ $(document).on("click", ".save-note", function () {
 });
 
 //unlock comment for editing
-$(document).on('click', '.unlock-note, .save-old-note', function () {
+$(document).on('click', '.unlock-note', function () {
   let id = $(this).attr('data-noteid');
-  //if fields readOnly, make editable, vice verse
-  if ($(`input[data-noteid=${id}]`).attr('readOnly')) {
-    $(`input[data-noteid=${id}]`).attr('readOnly', false);
-    $(`textarea[data-noteid=${id}]`).attr('readOnly', false);
-    //swap unlock button w save button
-    $(`.unlock-note[data-noteid=${id}]`).hide();
-    $(`.save-old-note[data-noteid=${id}]`).show();
-  } else {
-    $(`input[data-noteid=${id}]`).attr('readOnly', true);
-    $(`textarea[data-noteid=${id}]`).attr('readOnly', true);
-    //swap unlock button w save button
-    $(`.unlock-note[data-noteid=${id}]`).show();
-    $(`.save-old-note[data-noteid=${id}]`).hide();
-  }
+
+  $(`input[data-noteid=${id}]`).attr('readOnly', false);
+  $(`textarea[data-noteid=${id}]`).attr('readOnly', false);
+  //swap unlock button w save button
+  $(`.unlock-note[data-noteid=${id}]`).hide();
+  $(`.save-old-note[data-noteid=${id}]`).show();
 
 });
 
@@ -74,8 +66,8 @@ $(document).on("click", ".save-old-note", function () {
 
   let update = {
     _id: noteId,
-    title: $(`input[data-noteid=${noteId}]`).val(),
-    comment: $(`textarea[data-noteid=${noteId}]`).val(),
+    title: $(`input[data-noteid=${noteId}]`).val().trim(),
+    comment: $(`textarea[data-noteid=${noteId}]`).val().trim(),
     create_date: Date.now()
   }
 
@@ -84,11 +76,17 @@ $(document).on("click", ".save-old-note", function () {
   $.ajax("/notes/" + noteId,
     {
       type: "PUT",
-      data: update,
-      create_date: Date.now()
+      data: update
     }).then(function () {
       //location.reload();
     })
+
+  $(`input[data-noteid=${noteId}]`).attr('readOnly', true);
+  $(`textarea[data-noteid=${noteId}]`).attr('readOnly', true);
+  //swap save button w unlock button
+  $(`.unlock-note[data-noteid=${noteId}]`).show();
+  $(`.save-old-note[data-noteid=${noteId}]`).hide();
+
 
 });
 

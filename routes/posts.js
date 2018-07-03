@@ -24,10 +24,11 @@ app.post("/articles/:id", function (req, res) {
 
 app.put('/notes/:id', function(req, res) {
 
-  //console.log("req.body",req.body);
+  console.log("IN (req.body)",req.body);
   
-  db.Note.findOneAndUpdate({ _id: req.params.id }, req.body)
+  db.Note.findOneAndUpdate({ _id: req.body.id }, req.body)
   .then(function(dBNote){
+    console.log("OUT (dbNote)",dbNote);
     res.json(dBNote);
   })
   .catch(function (err) {
