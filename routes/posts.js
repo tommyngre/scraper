@@ -31,7 +31,7 @@ module.exports = function (app) {
 
     console.log("IN (req.body)", req.body);
 
-    db.Note.findOneAndUpdate({ _id: req.body.id }, req.body, { new: true })
+    db.Note.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true })
       .then(function (dBNote) {
         console.log("OUT (dbNote)", dBNote);
         res.json(dBNote);
