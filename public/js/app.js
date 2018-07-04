@@ -27,13 +27,6 @@ $('.add-note').on('click', function () {
 $(document).on("click", ".save-note", function () {
   var articleId = $(this).attr("data-articleId");
 
-  let newComment = {
-    title: $("#comment-title").val(),
-    comment: $("#comment").val(),
-    create_date: Date.now()
-  };
-  //console.log(newComment);
-
   //POST form elems
   $.ajax({
     method: "POST",
@@ -116,15 +109,21 @@ $(document).on('click', '.delete-note', function (event) {
 });
 
 function scrape() {
+  console.log("scrapin")
   $.ajax({
     method: "GET",
     url: "/scrape",
   })
-    .then(function () {
-      location.reload();
+    .then(function (data) {
     });
 }
 
-$(document).on('load', function () {
+$("#new-scrape").on('click', function(){
+  //load new scraped articles
+  location.reload();
+})
+
+$(document).ready(function () {
+  //scrape again on load
   scrape();
 })

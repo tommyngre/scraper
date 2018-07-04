@@ -36,7 +36,6 @@ module.exports = function (app) {
     // First, we grab the body of the html with request
     axios.get("https://slashfilm.com/").then(function (response) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
-      //console.log("response.data",response)
 
       var $ = cheerio.load(response.data);
 
@@ -64,28 +63,29 @@ module.exports = function (app) {
 
         result.create_date = Date.now();
 
-        //console.log("IN",result.summary);
+        // console.log("IN",result.summary);
 
         db.Article.find({ title: result.title })
           .then(function (data) {
-
+            //console.log("DATA",data,"LENGTH",data.length)
+            
             //if doesn't exist, create
             if (data.length === 0) {
               db.Article.create(result)
                 .then(function (dbArticle) {
-                  // View the added result in the console
                   //console.log("OUT",dbArticle);
                 })
                 .catch(function (err) {
-                  // If an error occurred, send it to the client
-                  return res.json("mnmnm",err);
+                  return res.json(err);
                 });
 
             };
+          })
+          .catch(function (err) {
+            return res.json(err);
           });
-      });
 
-      //send success message to client
+      });
       res.send("Scrape Complete");
     });
   });

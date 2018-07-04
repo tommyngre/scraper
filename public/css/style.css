@@ -10,6 +10,11 @@
   padding:.2rem;
 }
 
+#new-scrape{
+  margin:0 auto;
+  display:block;
+}
+
 div.footer>h5>a{
   text-decoration: none;  
 }
