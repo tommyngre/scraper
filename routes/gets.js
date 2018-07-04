@@ -1,5 +1,4 @@
 var db = require("../models");
-//var request = require('request');
 var axios = require('axios');
 var cheerio = require('cheerio');
 
@@ -16,13 +15,18 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
 
     db.Article.find({})
-      .sort({ create_date: 1 })
       .populate("note")
+      .sort({_id: -1 })
       .then(function (data) {
+
+        // data.forEach(x => {
+        //   console.log("db data",x._id)
+        // })
+
         hbsObject = {
           article: data
         }
-        //console.log("db.Article.find({})",hbsObject);
+
         res.render('index', hbsObject);
       })
       .catch(function (err) {
@@ -50,7 +54,6 @@ module.exports = function (app) {
           .find("h1")
           .find("a")
           .attr("title")
-        //.text();
 
         result.link = $(this)
           .find(".title-info")
@@ -58,28 +61,13 @@ module.exports = function (app) {
           .find("a")
           .attr("href")
 
-        result.summary = $(this)
-          .children("p").text();
-
-        result.create_date = Date.now();
+        result.summary = ($(this).children("p").text()) || "";
 
         // console.log("IN",result.summary);
 
-        db.Article.find({ title: result.title })
+        db.Article.findOneAndUpdate({ title: result.title },result,{upsert: true})
           .then(function (data) {
-            //console.log("DATA",data,"LENGTH",data.length)
-            
-            //if doesn't exist, create
-            if (data.length === 0) {
-              db.Article.create(result)
-                .then(function (dbArticle) {
-                  //console.log("OUT",dbArticle);
-                })
-                .catch(function (err) {
-                  return res.json(err);
-                });
-
-            };
+            //
           })
           .catch(function (err) {
             return res.json(err);

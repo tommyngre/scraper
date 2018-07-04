@@ -33,12 +33,10 @@ $(document).on("click", ".save-note", function () {
     url: "/articles/" + articleId,
     data: {
       title: $("#comment-title").val(),
-      comment: $("#comment").val(),
-      create_date: Date.now()
+      comment: $("#comment").val()
     }
   })
     .then(function (data) {
-      console.log(data);
       location.reload();
     });
 
@@ -68,7 +66,6 @@ $(document).on("click", ".save-old-note", function () {
     _id: noteId,
     title: $(`input[data-noteid=${noteId}]`).val().trim(),
     comment: $(`textarea[data-noteid=${noteId}]`).val().trim(),
-    create_date: Date.now()
   }
 
   //console.log("PUT", update);
@@ -109,7 +106,6 @@ $(document).on('click', '.delete-note', function (event) {
 });
 
 function scrape() {
-  console.log("scrapin")
   $.ajax({
     method: "GET",
     url: "/scrape",
