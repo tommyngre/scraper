@@ -16,7 +16,7 @@ module.exports = function (app) {
 
     db.Article.find({})
       .populate("note")
-      .sort({_id: -1 })
+      .sort({ _id: 1 })
       .then(function (data) {
 
         // data.forEach(x => {
